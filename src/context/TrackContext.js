@@ -9,7 +9,6 @@ import trackerApi from '../api/tracker';
 const trackReducer = (state, action ) => {
     switch (action.type) {
         case 'fetch_tracks':
-            // Returns just the payload because the state is just an array
             return action.payload;
         default: 
             return state;
@@ -20,13 +19,12 @@ const trackReducer = (state, action ) => {
 
 const fetchTracks = dispatch => async () => {
     const response = await trackerApi.get('/tracks')
-    dispatch({ type: 'fetch_tracks' })
+    dispatch({ type: 'fetch_tracks', payload: response.data })
 
 };
 
 const createTrack = dispatch => async (name,locations) => {
     await trackerApi.post('/tracks', { name, locations })
-    console.log(name, locations.length)
 
 };
 
